@@ -1,0 +1,36 @@
+contoh isi .env
+DB_HOST=localhost
+DB_USER=root
+DB_PASS=password_anda
+DB_NAME=movie_db
+DB_DIALECT=mysql
+JWT_SECRET=supersecretkey
+PORT=5000
+
+rancangan struktur folder api:
+📂 project-root
+│── 📂 src
+│   │── 📂 config           # Konfigurasi database, env, dll.
+│   │   │── db.js          # Koneksi database (PostgreSQL / MySQL)
+│   │── 📂 models          # Struktur tabel/database
+│   │   │── userModel.js   # Model user
+│   │   │── movieModel.js  # Model film
+│   │── 📂 routes          # Definisi endpoint API
+│   │   │── userRoutes.js  # Routes untuk user
+│   │   │── movieRoutes.js # Routes untuk film
+│   │── 📂 controllers     # Logika utama dari request
+│   │   │── userController.js  # Controller user
+│   │   │── movieController.js # Controller film
+│   │── 📂 services        # Business logic (opsional)
+│   │   │── userService.js  # Service untuk user
+│   │   │── movieService.js # Service untuk film
+│   │── 📂 middlewares      # Middleware (auth, error handling, validasi, dll.)
+│   │   │── authMiddleware.js # Middleware auth (JWT)
+│   │   │── validateMiddleware.js # Middleware validasi Joi
+│   │── 📂 validations      # Validasi Joi
+│   │   │── userValidation.js  # Validasi input user
+│   │   │── movieValidation.js # Validasi input film
+│   │── server.js          # File utama untuk menjalankan server
+│── .env                  # File konfigurasi environment
+│── package.json          # Dependensi proyek
+│── README.md             # Dokumentasi proyek
