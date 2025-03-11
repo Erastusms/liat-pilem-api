@@ -1,5 +1,5 @@
-const { Pool } = require("pg");
 require("dotenv").config();
+const { Pool } = require("pg");
 
 // Konfigurasi koneksi database
 const pool = new Pool({
