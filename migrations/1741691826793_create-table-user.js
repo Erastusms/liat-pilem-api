@@ -36,6 +36,9 @@ exports.up = (pgm) => {
             default: pgm.func('CURRENT_TIMESTAMP'),
         },
     });
+
+    pgm.createIndex('users', 'email', { unique: true });
+    pgm.createIndex('users', 'username', { unique: true });
 };
 
 exports.down = (pgm) => {
