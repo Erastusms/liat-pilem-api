@@ -129,3 +129,38 @@ CREATE INDEX idx_movies_title ON movies(title);
 CREATE INDEX idx_users_email ON users(email);
 CREATE INDEX idx_favorites_user_movie ON favorites(user_id, movie_id);
 CREATE INDEX idx_reviews_user_movie ON reviews(user_id, movie_id);
+
+
+Rancangan api route yang ingin dibuat:
+1. Autentikasi & Autorisasi
+[POST] /api/auth/register → Registrasi user (default sebagai member)
+[POST] /api/auth/login → Login user & mendapatkan token JWT
+[POST] /api/auth/logout → Logout user
+[GET] /api/auth/profile → Mendapatkan data profil user yang sedang login
+[PUT] /api/auth/profile → Update profil user (nama, email, password, dll.)
+[POST] /api/auth/refresh-token → Memperbarui token JWT
+2. Manajemen User (Admin Only)
+[GET] /api/users → Mendapatkan daftar semua user
+[GET] /api/users/:id → Mendapatkan detail user tertentu
+[PUT] /api/users/:id → Mengupdate data user (termasuk mengubah role)
+[DELETE] /api/users/:id → Menghapus user
+3. Manajemen Film (Admin Only)
+[POST] /api/movies → Menambahkan film baru
+[PUT] /api/movies/:id → Mengupdate data film
+[DELETE] /api/movies/:id → Menghapus film
+4. Menampilkan Film (Public & Member)
+[GET] /api/movies → Mendapatkan daftar semua film
+[GET] /api/movies/:id → Mendapatkan detail film tertentu
+[GET] /api/movies?search=title → Mencari film berdasarkan judul
+5. Manajemen Review & Rating (Member Only)
+[POST] /api/movies/:id/reviews → Menambahkan review & rating ke film
+[PUT] /api/movies/:id/reviews/:reviewId → Mengedit review
+[DELETE] /api/movies/:id/reviews/:reviewId → Menghapus review
+6. Manajemen Wishlist (Member Only)
+[POST] /api/wishlist → Menambahkan film ke wishlist
+[GET] /api/wishlist → Melihat daftar film di wishlist
+[DELETE] /api/wishlist/:id → Menghapus film dari wishlist
+7. Statistik & Laporan (Admin Only)
+[GET] /api/stats/total-users → Mendapatkan jumlah total user
+[GET] /api/stats/total-movies → Mendapatkan jumlah total film
+[GET] /api/stats/most-reviewed-movies → Mendapatkan daftar film dengan review terbanyak
