@@ -8,17 +8,32 @@ exports.up = (pgm) => {
             default: pgm.func('gen_random_uuid()'),
         },
         username: {
-            type: 'VARCHAR(50)',
+            type: 'varchar(50)',
             notNull: true,
             unique: true,
         },
-        password: {
-            type: 'TEXT',
+        email: {
+            type: 'varchar(100)',
+            notNull: true,
+            unique: true,
+        },
+        password_hash: {
+            type: 'text',
             notNull: true,
         },
-        fullname: {
-            type: 'TEXT',
+        role: {
+            type: 'varchar(20)',
             notNull: true,
+            default: 'member',
+            check: "role IN ('admin', 'member')",
+        },
+        created_at: {
+            type: 'timestamp',
+            default: pgm.func('CURRENT_TIMESTAMP'),
+        },
+        updated_at: {
+            type: 'timestamp',
+            default: pgm.func('CURRENT_TIMESTAMP'),
         },
     });
 };
