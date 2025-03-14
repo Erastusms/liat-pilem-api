@@ -10,6 +10,12 @@ const UserModel = {
         const values = [username, email, password, "member"];
         const { rows } = await pool.query(query, values);
         return rows[0];
+    },
+
+    async getUserByEmail(email) {
+        const query = `SELECT * FROM users WHERE email = $1;`;
+        const { rows } = await pool.query(query, [email]);
+        return rows[0] || null;
     }
 };
 
