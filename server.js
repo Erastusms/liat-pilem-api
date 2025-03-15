@@ -20,6 +20,10 @@ app.use(express.json());
 app.use(express.raw());
 app.use(routes);
 
+app.get("/", (req, res) => res.status(200).json({
+  message: "Hello world"
+}));
+
 app.listen(port, () => {
   console.log("Server is running in port: http://localhost:5000");
 });
