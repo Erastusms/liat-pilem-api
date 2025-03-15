@@ -27,3 +27,15 @@ app.get("/", (req, res) => res.status(200).json({
 app.listen(port, () => {
   console.log("Server is running in port: http://localhost:5000");
 });
+
+app.use((err, req, res, next) => {
+  if (err) {
+    console.error(err.message);
+    return res.status(err.statusCode).json({
+      statusCode: err.statusCode,
+      message: err.message,
+    });
+  }
+
+  return next();
+});
