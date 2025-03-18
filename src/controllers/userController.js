@@ -33,6 +33,16 @@ class UserController {
             next(error)
         }
     }
+
+    static async getProfile(req, res, next) {
+        try {
+            const { id } = req.userData;
+            const users = await UserModel.getUserByUsername(id);
+            return successRes(res, 200, "Show Data", users)
+        } catch (error) {
+            next(error)
+        }
+    }
 }
 
 module.exports = UserController;
