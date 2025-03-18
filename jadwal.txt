@@ -1,0 +1,40 @@
+🗂 Tahapan Pengerjaan (Estimasi 2-3 Minggu)
+
+No	Tahapan	Deskripsi	Durasi
+🏗 1	Setup Project	(1 Hari)
+- Inisialisasi project Node.js & Express.
+- Setup environment (dotenv).
+- Setup database PostgreSQL / MySQL.
+🔧 2	Setup Database & Migration	(2 Hari)
+- Buat skema database (users, movies, categories, favorites, reviews).
+- Buat file migrations dengan node-pg-migrate.
+🔑 3	Fitur Authentication (2 Hari)
+- Buat model UserModel.js.	
+- Implementasi registrasi dan login dengan argon2 (hash password).
+- Setup JWT untuk autentikasi.
+🎬 4	Fitur CRUD Film	(2 Hari)
+- Buat model MovieModel.js.
+- Buat endpoint CRUD film (GET, POST, PUT, DELETE).
+- Validasi request dengan Joi.
+🏷️ 5	Fitur Kategori Film	(1 Hari)
+- Buat model CategoryModel.js.
+- CRUD kategori film.
+- Relasi film dan kategori.
+❤️ 6	Fitur Favorit & Review	(2 Hari)
+- Tambahkan fitur menyimpan film favorit (favorites).
+- Tambahkan fitur review & rating film.
+- Validasi input review.
+📄 7	Custom Response & Error Handling (1 Hari)
+- Implementasi ResponseHelper.js untuk response API yang konsisten.
+- Setup middleware error handling.
+📜 8	Swagger API Documentation	(2 Hari)
+- Setup swagger-jsdoc.
+- Tambahkan dokumentasi otomatis untuk setiap endpoint.
+📦 9	Testing API (Jest/Supertest)	(2 Hari)
+- Unit & integration testing untuk auth, film, kategori.
+- Simulasi test API dengan Postman.
+🚀 10	Deployment & Optimasi (3 Hari)
+- Setup server di VPS/Cloud.
+- Gunakan pm2 untuk process manager.
+- Konfigurasi CORS, Helmet, Rate Limiter.
+
