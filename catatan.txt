@@ -1,0 +1,3 @@
+Catatan pada projek ini
+Contoh untuk membuat tabel baru:
+- npm run migrate create "create table movies"
