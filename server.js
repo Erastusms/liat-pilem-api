@@ -19,11 +19,13 @@ pool
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(express.raw());
-app.use(routes);
+app.use("/api/v1", routes);
 
-app.get("/", (req, res) => res.status(200).json({
-  message: "Hello world"
-}));
+app.get("/", (req, res) =>
+  res.status(200).json({
+    message: "Hello world",
+  })
+);
 
 app.listen(port, () => {
   console.log("Server is running in port: http://localhost:5000");
@@ -31,7 +33,7 @@ app.listen(port, () => {
 
 app.use((err, req, res, next) => {
   if (err) {
-    return errorRes(res, statusCode = 500, message = err.message, err);
+    return errorRes(res, (statusCode = 500), (message = err.message), err);
   }
 
   return next();
