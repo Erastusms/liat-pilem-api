@@ -3,7 +3,7 @@ const { UserModel } = require('../models');
 const { successRes, errorRes } = require('../helpers/responses');
 
 class UserController {
-    static async createUser(req, res, next) {
+    static async register(req, res, next) {
         try {
             const { username, email, password } = req.body
             const hashedPassword = await argon2.hash(password); // hashing dengan argon2

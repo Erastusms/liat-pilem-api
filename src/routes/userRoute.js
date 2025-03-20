@@ -3,7 +3,7 @@ const UserController = require('../controllers/userController');
 
 const userRoute = express.Router();
 
-userRoute.post('/create', UserController.createUser);
+userRoute.post('/create', UserController.register);
 userRoute.post('/login', UserController.login);
 userRoute.post('/profile', UserController.getProfile);
 
