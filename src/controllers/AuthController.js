@@ -1,6 +1,7 @@
 const { errorRes, successRes } = require("../helpers/responses");
 const UserModel = require("../models/UserModel");
-const { generateToken } = require("../utils/jwt");
+const { generateToken, generateRefreshToken } = require("../utils/jwt");
+const { getToday } = require("../utils/moment");
 const { hashPassword, verifyPassword } = require("../utils/password");
 
 class AuthController {
@@ -54,36 +55,36 @@ class AuthController {
     }
   }
 
-  static async profile(req, res) {
+  static async profile(req, res, next) {
     try {
       const user = await UserModel.findById(req.user.userId);
       if (!user) {
         return errorRes(res, 404, "User not found");
       }
 
-      return successRes(res, 200, "Show Profile", { user });
+      return successRes(res, 200, "Show Profile", user);
     } catch (error) {
       next(error);
     }
   }
 
-  static async updateProfile(req, res) {
+  static async updateProfile(req, res, next) {
     try {
+      const user = await UserModel.findById(req.user.userId);
       const { username, email, password } = req.body;
       let passwordHash = null;
       if (password) {
         passwordHash = await hashPassword(password);
       }
-
-      const updatedUser = await UserModel.updateUser(req.user.userId, {
-        username,
-        email,
-        passwordHash,
+      
+      await UserModel.updateUser(req.user.userId, {
+        username: username ?? user.username,
+        email: email ?? user.email,
+        passwordHash: passwordHash ?? user.password_hash,
+        updatedAt: getToday(),
       });
 
-      return successRes(res, 201, "Profile updated successfully", {
-        updatedUser,
-      });
+      return successRes(res, 200, "Update Profile successfully");
     } catch (error) {
       next(error);
     }
