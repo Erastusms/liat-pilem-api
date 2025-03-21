@@ -22,6 +22,23 @@ const UserModel = {
     const { rows } = await pool.query(query, [username]);
     return rows[0] || null;
   },
+
+  async updateUser(userId, { username, email, passwordHash }) {
+    const query = `UPDATE users
+      SET username = $1, email = $2, password_hash = COALESCE($3, password_hash)
+      WHERE user_id = $4
+      RETURNING user_id, username, email;`;
+
+    const values = [username, email, passwordHash || null, userId];
+    const { rows } = await pool.query(query, values);
+    return rows[0];
+  },
+
+  async findById(userId) {
+    const query = `SELECT user_id, username, email, role FROM users WHERE user_id = $1`;
+    const { rows } = await pool.query(query, [userId]);
+    return rows[0];
+  },
 };
 
 module.exports = UserModel;
