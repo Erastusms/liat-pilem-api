@@ -21,6 +21,10 @@ exports.up = (pgm) => {
             type: 'text',
             notNull: true,
         },
+        refresh_token: { 
+            type: "TEXT", 
+            notNull: false 
+        },
         role: {
             type: 'varchar(20)',
             notNull: true,
