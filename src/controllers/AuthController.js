@@ -1,6 +1,6 @@
 const { errorRes, successRes } = require("../helpers/responses");
 const UserModel = require("../models/UserModel");
-const { generateToken, generateRefreshToken } = require("../utils/jwt");
+const { generateToken, generateRefreshToken, verifyRefreshToken } = require("../utils/jwt");
 const { getToday } = require("../utils/moment");
 const { hashPassword, verifyPassword } = require("../utils/password");
 
@@ -73,6 +73,30 @@ class AuthController {
       await UserModel.updateRefreshToken(user.user_id, NULL);
 
       return successRes(res, 200, "Logout successful");
+    } catch (error) {
+      next(error);
+    }
+  }
+
+  static async refreshToken(req, res) {
+    try {
+      const { refreshToken } = req.body;
+      if (!refreshToken) {
+        return errorRes(res, 400, "Refresh token is required");
+      }
+
+      const user = await UserModel.findByRefreshToken(refreshToken);
+      if (!user) {
+        return errorRes(res, 403, "Invalid refresh token");
+      }
+
+      const decoded = verifyRefreshToken(refreshToken);
+      if (!decoded) {
+        return errorRes(res, 403, "Invalid refresh token");
+      }
+
+      const newToken = generateToken(user);
+      return successRes(res, 200, "Refresh Token successfully", { token: newToken });
     } catch (error) {
       next(error);
     }
