@@ -49,7 +49,30 @@ class AuthController {
       const token = generateToken(user);
       const refreshToken = generateRefreshToken(user);
 
+      await UserModel.updateRefreshToken(user.user_id, refreshToken);
+
       return successRes(res, 200, "Login successful", { token, refreshToken });
+    } catch (error) {
+      next(error);
+    }
+  }
+
+  static async logout(req, res, next) {
+    try {
+      const { refreshToken } = req.body;
+      if (!refreshToken) {
+        return errorRes(res, 400, "Refresh token is required");
+      }
+
+      const user = await UserModel.findByRefreshToken(refreshToken);
+      if (!user) {
+        return errorRes(res, 403, "Invalid refresh token");
+      }
+
+      // Hapus refresh token dari database
+      await UserModel.updateRefreshToken(user.user_id, NULL);
+
+      return successRes(res, 200, "Logout successful");
     } catch (error) {
       next(error);
     }
@@ -76,7 +99,7 @@ class AuthController {
       if (password) {
         passwordHash = await hashPassword(password);
       }
-      
+
       await UserModel.updateUser(req.user.userId, {
         username: username ?? user.username,
         email: email ?? user.email,

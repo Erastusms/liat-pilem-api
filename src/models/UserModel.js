@@ -39,6 +39,17 @@ const UserModel = {
     const { rows } = await pool.query(query, [userId]);
     return rows[0];
   },
+
+  async updateRefreshToken(userId, refreshToken) {
+    const query = `UPDATE users SET refresh_token = $1 WHERE user_id = $2`;
+    await pool.query(query, [refreshToken, userId]);
+  },
+
+  async findByRefreshToken(refreshToken) {
+    const query = `SELECT * FROM users WHERE refresh_token = $1`;
+    const { rows } = await pool.query(query, [refreshToken]);
+    return rows[0];
+  }
 };
 
 module.exports = UserModel;
