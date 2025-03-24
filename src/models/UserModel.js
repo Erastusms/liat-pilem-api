@@ -49,7 +49,21 @@ const UserModel = {
     const query = `SELECT * FROM users WHERE refresh_token = $1`;
     const { rows } = await pool.query(query, [refreshToken]);
     return rows[0];
-  }
+  },
+
+  async getAllUsers() {
+    const { rows } = await pool.query("SELECT * FROM users");
+    return rows;
+  },
+
+  async getUserById(userId) {
+    const { rows } = await pool.query("SELECT * FROM users WHERE user_id = $1", [userId]);
+    return rows[0];
+  },
+
+  async deleteUser(userId) {
+    await pool.query("DELETE FROM users WHERE user_id = $1", [userId]);
+  },
 };
 
 module.exports = UserModel;

@@ -13,4 +13,12 @@ const authMiddleware = (req, res, next) => {
   }
 };
 
-module.exports = authMiddleware;
+const adminMiddleware = (req, res, next) => {
+  if (req.user.role !== "admin") {
+    return errorRes(res, 403, "Forbidden: Admin access required!")
+  }
+  next();
+};
+
+
+module.exports = { authMiddleware, adminMiddleware };
