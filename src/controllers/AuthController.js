@@ -70,7 +70,7 @@ class AuthController {
       }
 
       // Hapus refresh token dari database
-      await UserModel.updateRefreshToken(user.user_id, NULL);
+      await UserModel.updateRefreshToken(user.user_id, '');
 
       return successRes(res, 200, "Logout successful");
     } catch (error) {
