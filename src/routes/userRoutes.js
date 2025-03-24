@@ -8,4 +8,4 @@ userRoute.get("/users", authMiddleware, adminMiddleware, UserController.getAllUs
 userRoute.get("/users/:id", authMiddleware, adminMiddleware, UserController.getUserById);
 userRoute.delete("/users/:id", authMiddleware, adminMiddleware, UserController.deleteUser);
 
-module.exports = router;
+module.exports = userRoute;
