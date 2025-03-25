@@ -1,4 +1,4 @@
-const { successRes } = require("../helpers/responses");
+const { successRes, errorRes } = require("../helpers/responses");
 const UserModel = require("../models/UserModel");
 
 class UserController {
@@ -29,6 +29,12 @@ class UserController {
     static async deleteUser(req, res, next) {
         try {
             const { id } = req.params;
+            const user = await UserModel.getUserById(id);
+
+            if (!user) {
+                return errorRes(res, 404, "User not found");
+            }
+            
             await UserModel.deleteUser(id);
             return successRes(res, 200, "User deleted successfully");
         } catch (error) {
