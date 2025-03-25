@@ -4,8 +4,8 @@ const { authMiddleware, adminMiddleware } = require("../middlewares/authMiddlewa
 
 const userRoute = express.Router();
 
-userRoute.get("/users", authMiddleware, adminMiddleware, UserController.getAllUsers);
-userRoute.get("/users/:id", authMiddleware, adminMiddleware, UserController.getUserById);
-userRoute.delete("/users/:id", authMiddleware, adminMiddleware, UserController.deleteUser);
+userRoute.get("/", authMiddleware, adminMiddleware, UserController.getAllUsers);
+userRoute.get("/:id", authMiddleware, adminMiddleware, UserController.getUserById);
+userRoute.delete("/:id", authMiddleware, adminMiddleware, UserController.deleteUser);
 
 module.exports = userRoute;
