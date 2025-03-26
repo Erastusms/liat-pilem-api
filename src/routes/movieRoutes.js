@@ -1,6 +1,9 @@
 const express = require("express");
 const MovieController = require("../controllers/MovieController");
-const { adminMiddleware, authMiddleware } = require("../middlewares/authMiddleware");
+const {
+  adminMiddleware,
+  authMiddleware,
+} = require("../middlewares/authMiddleware");
 const validator = require("../middlewares/validate");
 const { movieSchema } = require("../validations/movieValidation");
 
@@ -20,6 +23,11 @@ movieRoute.put(
   validator(movieSchema, "body"),
   MovieController.updateMovie
 );
-movieRoute.delete("/:id", adminMiddleware, MovieController.deleteMovie);
+movieRoute.delete(
+  "/:id",
+  authMiddleware,
+  adminMiddleware,
+  MovieController.deleteMovie
+);
 
 module.exports = movieRoute;
