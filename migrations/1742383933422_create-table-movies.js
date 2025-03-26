@@ -5,10 +5,14 @@ exports.up = (pgm) => {
             primaryKey: true,
             default: pgm.func('gen_random_uuid()'),
         },
+        director: {
+            type: "VARCHAR(100)",
+            notNull: true,
+        },
         title: {
             type: "VARCHAR(255)",
             notNull: true,
-        },
+        }, 
         description: {
             type: "TEXT",
             notNull: true,
