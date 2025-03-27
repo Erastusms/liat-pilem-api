@@ -1,7 +1,7 @@
 const { errorRes } = require("../helpers/responses");
 const { verifyToken } = require("../utils/jwt");
 
-const authMiddleware = (req, res, next) => {
+const auth = (req, res, next) => {
   const token = req.headers.authorization?.split(" ")[1];
   if (!token) return errorRes(res, 401, "Unauthorized");
 
@@ -13,7 +13,7 @@ const authMiddleware = (req, res, next) => {
   }
 };
 
-const adminMiddleware = (req, res, next) => {
+const admin = (req, res, next) => {
   if (req.user.role !== "admin") {
     return errorRes(res, 403, "Forbidden: Admin access required!")
   }
@@ -21,4 +21,4 @@ const adminMiddleware = (req, res, next) => {
 };
 
 
-module.exports = { authMiddleware, adminMiddleware };
+module.exports = { auth, admin };
