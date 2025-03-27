@@ -19,9 +19,8 @@ class MovieModel {
     return rows[0];
   }
 
-  static async getAllMovies() {
-    const { rows } = await pool.query(`
-      SELECT 
+  static async getAllMovies(search) {
+    let query = `SELECT 
           m.movie_id, 
           m.title, 
           m.description, 
@@ -30,11 +29,18 @@ class MovieModel {
           COALESCE(json_agg(c.name) FILTER (WHERE c.name IS NOT NULL), '[]') AS categories
       FROM movies m
       LEFT JOIN movie_categories mc ON m.movie_id = mc.movie_id
-      LEFT JOIN categories c ON mc.category_id = c.category_id
-      GROUP BY m.movie_id
-      ORDER BY m.title ASC;
-    `);
-    return rows;
+      LEFT JOIN categories c ON mc.category_id = c.category_id`;
+    const values = [];
+
+    if (search) {
+      query += ` WHERE LOWER(m.title) ILIKE $1 OR LOWER(m.description) ILIKE $1`;
+      values.push(`%${search}%`);
+    }
+
+    query += ` GROUP BY m.movie_id ORDER BY m.title ASC`;
+
+    const result = await pool.query(query, values);
+    return result.rows;
   }
 
   static async updateMovie(paramMovie) {

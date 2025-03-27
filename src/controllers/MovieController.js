@@ -18,8 +18,9 @@ class MovieController {
   }
 
   static async getMovies(req, res, next) {
+    const { search } = req.query;
     try {
-      const dataMovies = await MovieModel.getAllMovies();
+      const dataMovies = await MovieModel.getAllMovies(search);
       return successRes(res, 200, "Show All Movies", dataMovies);
     } catch (error) {
       next(error);
