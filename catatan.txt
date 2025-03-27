@@ -1,3 +1,7 @@
 Catatan pada projek ini
 Contoh untuk membuat tabel baru:
 - npm run migrate create "create table movies"
+
+Ketika macet saat migrate:
+select * from pgmigrations
+delete from pgmigrations where name='1742374570142_create-table-categories'
