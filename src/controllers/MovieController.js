@@ -4,8 +4,14 @@ const { getToday } = require("../utils/moment");
 
 class MovieController {
   static async createMovie(req, res, next) {
+    const { categories, ...paramMovie } = req.body;
     try {
-      const newMovie = await MovieModel.createMovie(req.body);
+      const newMovie = await MovieModel.createMovie(paramMovie);
+      const values = categories
+        .map((category) => `('${newMovie.movie_id}', '${category}')`)
+        .join(", ");
+      const insertQuery = `INSERT INTO movie_categories (movie_id, category_id) VALUES ${values};`;
+      await MovieModel.addCategory(insertQuery);
       return successRes(res, 201, "Movie created successfully", newMovie);
     } catch (error) {
       next(error);

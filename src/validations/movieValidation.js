@@ -7,7 +7,7 @@ const movieSchema = Joi.object({
   releaseDate: Joi.date().iso().required(),
   duration: Joi.number().min(1).required(),
   rating: Joi.number().max(10).required(),
+  categories: Joi.array().items(Joi.number().optional()),
 });
-
 
 module.exports = { movieSchema };

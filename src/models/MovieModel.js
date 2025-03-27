@@ -12,6 +12,11 @@ class MovieModel {
     return rows[0];
   }
 
+  static async addCategory(insertQuery) {
+    const { rows } = await pool.query(insertQuery);
+    return rows[0];
+  }
+
   static async getAllMovies() {
     const { rows } = await pool.query(`
       SELECT 
