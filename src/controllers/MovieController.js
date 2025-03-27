@@ -10,8 +10,7 @@ class MovieController {
       const values = categories
         .map((category) => `('${newMovie.movie_id}', '${category}')`)
         .join(", ");
-      const insertQuery = `INSERT INTO movie_categories (movie_id, category_id) VALUES ${values};`;
-      await MovieModel.addCategory(insertQuery);
+      await MovieModel.addCategory(values);
       return successRes(res, 201, "Movie created successfully", newMovie);
     } catch (error) {
       next(error);

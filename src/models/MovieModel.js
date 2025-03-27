@@ -12,8 +12,10 @@ class MovieModel {
     return rows[0];
   }
 
-  static async addCategory(insertQuery) {
-    const { rows } = await pool.query(insertQuery);
+  static async addCategory(values) {
+    const { rows } = await pool.query(
+      `INSERT INTO movie_categories (movie_id, category_id) VALUES ${values};`
+    );
     return rows[0];
   }
 
