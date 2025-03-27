@@ -31,11 +31,6 @@ exports.up = (pgm) => {
             notNull: false,
             comment: "Average rating, e.g. 8.5",
         },
-        category_id: {
-            type: "INTEGER",
-            references: '"categories"',
-            onDelete: "CASCADE",
-        },
         created_at: {
             type: 'timestamp',
             default: pgm.func('CURRENT_TIMESTAMP'),
