@@ -43,6 +43,18 @@ class MovieModel {
     return result.rows;
   }
 
+  static async getMovieDetail(movieId) {
+    const query = `SELECT m.movie_id, m.title, m.release_date, m.duration, m.description,
+                          json_agg(c.name) AS categories
+                   FROM movies m
+                   LEFT JOIN movie_categories mc ON m.movie_id = mc.movie_id
+                   LEFT JOIN categories c ON mc.category_id = c.category_id
+                   WHERE m.movie_id = $1
+                   GROUP BY m.movie_id`;
+    const result = await pool.query(query, [movieId]);
+    return result.rows[0] || null;
+  }
+
   static async updateMovie(paramMovie) {
     const {
       movieId,

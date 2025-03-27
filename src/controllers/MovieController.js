@@ -27,6 +27,16 @@ class MovieController {
     }
   }
 
+  static async getDetailMovie(req, res, next) {
+    try {
+      const movie = await MovieModel.getMovieDetail(req.params.id);
+      if(!movie) return errorRes(res, 404, "Movie Not Found")
+      return successRes(res, 200, "Show Detail Movie", movie);
+    } catch (error) {
+      next(error);
+    }
+  }
+
   static async updateMovie(req, res, next) {
     try {
       const { id } = req.params;
