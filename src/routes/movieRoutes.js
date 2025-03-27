@@ -6,6 +6,7 @@ const { movieSchema } = require("../validations/movieValidation");
 
 const movieRoute = express.Router();
 
+movieRoute.get("/", MovieController.getMovies);
 movieRoute.post(
   "/",
   auth,

@@ -12,6 +12,15 @@ class MovieController {
     }
   }
 
+  static async getMovies(req, res, next) {
+    try {
+      const dataMovies = await MovieModel.getAllMovies();
+      return successRes(res, 200, "Show All Movies", dataMovies);
+    } catch (error) {
+      next(error);
+    }
+  }
+
   static async updateMovie(req, res, next) {
     try {
       const { id } = req.params;
