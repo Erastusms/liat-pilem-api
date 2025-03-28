@@ -19,7 +19,7 @@ exports.up = (pgm) => {
         rating: {
             type: "INTEGER",
             notNull: true,
-            check: "rating BETWEEN 1 AND 5",
+            check: "rating BETWEEN 1 AND 10",
         },
         comment: {
             type: "TEXT",

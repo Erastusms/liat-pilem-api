@@ -3,6 +3,7 @@ const MovieController = require("../controllers/MovieController");
 const { auth, admin } = require("../middlewares/auth");
 const validator = require("../middlewares/validate");
 const { movieSchema } = require("../validations/movieValidation");
+const reviewRoute = require("./reviewRoutes");
 
 const movieRoute = express.Router();
 
@@ -23,5 +24,8 @@ movieRoute.put(
   MovieController.updateMovie
 );
 movieRoute.delete("/:id", auth, admin, MovieController.deleteMovie);
+
+// Route Review
+movieRoute.use("/:id/reviews", reviewRoute);
 
 module.exports = movieRoute;
