@@ -156,10 +156,10 @@ Rancangan api route yang ingin dibuat:
 [POST] /api/movies/:id/reviews → Menambahkan review & rating ke film
 [PUT] /api/movies/:id/reviews/:reviewId → Mengedit review
 [DELETE] /api/movies/:id/reviews/:reviewId → Menghapus review
-6. Manajemen Wishlist (Member Only)
-[POST] /api/wishlist → Menambahkan film ke wishlist
-[GET] /api/wishlist → Melihat daftar film di wishlist
-[DELETE] /api/wishlist/:id → Menghapus film dari wishlist
+6. Manajemen Watchlist (Member Only)
+[POST] /api/watchlist → Menambahkan film ke watchlist
+[GET] /api/watchlist → Melihat daftar film di watchlist
+[DELETE] /api/watchlist/:id → Menghapus film dari watchlist
 7. Statistik & Laporan (Admin Only)
 [GET] /api/stats/total-users → Mendapatkan jumlah total user
 [GET] /api/stats/total-movies → Mendapatkan jumlah total film
