@@ -3,9 +3,11 @@ const express = require("express");
 const pool = require("./src/config/db");
 const routes = require("./src/routes");
 const { errorRes } = require("./src/helpers/responses");
+const setupSwagger = require("./src/config/swagger");
 
 const app = express();
 const port = process.env.PORT || 5000;
+setupSwagger(app);
 
 // Cek koneksi ke database saat server dimulai
 pool
