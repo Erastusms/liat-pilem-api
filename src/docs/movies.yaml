@@ -1,0 +1,137 @@
+paths:
+  /api/v1/movies:
+    post:
+      summary: Menambahkan film baru
+      description: Endpoint ini hanya bisa diakses oleh admin untuk menambahkan film ke database.
+      tags:
+        - Movies
+      security:
+        - BearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - director
+                - title
+                - description
+                - release_date
+                - duration
+              properties:
+                director:
+                  type: string
+                  example: 'Christopher Nolan'
+                  description: 'Nama sutradara film'
+                title:
+                  type: string
+                  example: 'Inception'
+                  description: 'Judul film'
+                description:
+                  type: string
+                  example: 'A thief who enters the dreams of others to steal secrets from their subconscious.'
+                  description: 'Deskripsi film'
+                release_date:
+                  type: string
+                  format: date
+                  example: '2010-07-16'
+                  description: 'Tanggal rilis film (format YYYY-MM-DD)'
+                duration:
+                  type: integer
+                  example: 148
+                  description: 'Durasi film dalam menit'
+                rating:
+                  type: number
+                  format: float
+                  example: 8.8
+                  description: 'Rating rata-rata film, opsional'
+                categories:
+                  type: array
+                  items:
+                    type: integer
+                  example: [1, 2, 3]
+                  description: 'ID kategori film dalam bentuk array'
+
+      responses:
+        201:
+          description: Film berhasil dibuat
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: 'success'
+                  message:
+                    type: string
+                    example: 'Movie created successfully'
+                  data:
+                    type: object
+                    properties:
+                      movie_id:
+                        type: integer
+                        example: 1
+                      director:
+                        type: string
+                        example: 'Christopher Nolan'
+                      title:
+                        type: string
+                        example: 'Inception'
+                      description:
+                        type: string
+                        example: 'A thief who enters the dreams of others to steal secrets from their subconscious.'
+                      release_date:
+                        type: string
+                        format: date
+                        example: '2010-07-16'
+                      duration:
+                        type: integer
+                        example: 148
+                      rating:
+                        type: number
+                        format: float
+                        example: 8.8
+
+        400:
+          description: Request tidak valid atau ada kesalahan dalam input
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: 'error'
+                  message:
+                    type: string
+                    example: 'Invalid input data'
+
+        401:
+          description: Unauthorized - Token tidak valid atau tidak memiliki akses admin
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: 'error'
+                  message:
+                    type: string
+                    example: 'Unauthorized'
+
+        500:
+          description: Terjadi kesalahan pada server
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: 'error'
+                  message:
+                    type: string
+                    example: 'Internal Server Error'

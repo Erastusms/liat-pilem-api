@@ -1,0 +1,150 @@
+paths:
+  /api/v1/users:
+    get:
+      summary: Mendapatkan daftar semua user
+      description: Endpoint ini hanya bisa diakses oleh admin untuk melihat daftar user yang terdaftar di sistem.
+      tags:
+        - Users
+      security:
+        - BearerAuth: []
+      responses:
+        200:
+          description: Data user berhasil diambil
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: 'success'
+                  message:
+                    type: string
+                    example: 'Show Data User'
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        user_id:
+                          type: integer
+                          example: 1
+                        username:
+                          type: string
+                          example: 'johndoe'
+                        email:
+                          type: string
+                          example: 'johndoe@example.com'
+                        role:
+                          type: string
+                          example: 'member'
+        401:
+          description: Unauthorized - Token tidak valid atau tidak ada akses admin
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: 'error'
+                  message:
+                    type: string
+                    example: 'Unauthorized'
+        500:
+          description: Terjadi kesalahan pada server
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: 'error'
+                  message:
+                    type: string
+                    example: 'Internal Server Error'
+
+  /api/v1/users/{userId}:
+    get:
+      summary: Mendapatkan detail user tertentu
+      description: Mengambil informasi user berdasarkan ID. Hanya bisa diakses oleh admin.
+      tags:
+        - Users
+      security:
+        - BearerAuth: []
+      parameters:
+        - in: path
+          name: userId
+          required: true
+          schema:
+            type: integer
+          description: ID dari user yang ingin dicari
+      responses:
+        200:
+          description: Data user berhasil ditemukan
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: 'success'
+                  message:
+                    type: string
+                    example: 'Show Data User'
+                  data:
+                    type: object
+                    properties:
+                      user_id:
+                        type: integer
+                        example: 1
+                      username:
+                        type: string
+                        example: 'johndoe'
+                      email:
+                        type: string
+                        example: 'johndoe@example.com'
+                      role:
+                        type: string
+                        example: 'member'
+        404:
+          description: User tidak ditemukan
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: 'error'
+                  message:
+                    type: string
+                    example: 'User not found'
+        401:
+          description: Unauthorized - Token tidak valid atau tidak ada akses admin
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: 'error'
+                  message:
+                    type: string
+                    example: 'Unauthorized'
+        500:
+          description: Terjadi kesalahan pada server
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: 'error'
+                  message:
+                    type: string
+                    example: 'Internal Server Error'

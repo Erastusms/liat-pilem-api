@@ -1,0 +1,71 @@
+paths:
+  /api/v1/auth/register:
+    post:
+      summary: Mendaftarkan user baru
+      description: Endpoint untuk registrasi user baru dengan validasi email unik dan hashing password menggunakan Argon2.
+      tags:
+        - Authentication
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                username:
+                  type: string
+                  example: 'johndoe'
+                  description: 'Nama pengguna yang unik, maksimal 50 karakter'
+                email:
+                  type: string
+                  example: 'johndoe@example.com'
+                  description: 'Email pengguna yang unik, maksimal 100 karakter'
+                password:
+                  type: string
+                  example: 'P@ssw0rd!'
+                  description: 'Password yang akan di-hash sebelum disimpan'
+                role:
+                  type: string
+                  enum: ['admin', 'member']
+                  example: 'member'
+                  description: "Peran user, default adalah 'member'"
+      responses:
+        201:
+          description: User berhasil didaftarkan
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: 'success'
+                  message:
+                    type: string
+                    example: 'User Registered Successfully'
+        400:
+          description: Email sudah terdaftar
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: 'error'
+                  message:
+                    type: string
+                    example: 'Email already registered'
+        500:
+          description: Terjadi kesalahan pada server
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: 'error'
+                  message:
+                    type: string
+                    example: 'Internal Server Error'
